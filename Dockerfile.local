@@ -1,0 +1,29 @@
+# Dependency install stage
+FROM node:12
+
+# Grabs script for Doppler CLI tools
+RUN (curl -Ls https://cli.doppler.com/install.sh || wget -qO- https://cli.doppler.com/install.sh) | sh
+
+WORKDIR /app
+
+# Environment
+ARG DOPPLER_TOKEN
+ENV DOPPLER_TOKEN=${DOPPLER_TOKEN}
+EXPOSE 3002
+
+# Grabs secrets from Doppler, and embeds encrypted version in build
+RUN printenv
+RUN doppler secrets download doppler.encrypted.json
+
+# Copy necessary source
+COPY package.json package.json
+COPY yarn.lock yarn.lock
+
+# Install deps
+RUN yarn
+
+# Copy more files
+COPY . .
+
+ENTRYPOINT ["doppler", "run", "--fallback=doppler.encrypted.json", "--"]
+CMD ["yarn", "start:dev"]

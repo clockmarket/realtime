@@ -1,0 +1,32 @@
+.dockerignore
+.editorconfig
+
+# Environment
+.env
+.env.*
+
+.eslintrc*
+.git
+.gitignore
+
+.idea
+.prettierrc
+.vscode
+*-error
+
+# Commit linting (dev)
+commitlint.config.js
+
+coverage
+
+# Docker
+docker-compose.*
+Dockerfile
+Dockerfile.*
+
+local.env
+node_modules
+README.md
+yar-error*
+
+redis-volume
