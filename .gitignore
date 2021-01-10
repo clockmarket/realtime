@@ -65,3 +65,6 @@ etc
 redis-volume
 
 .idea
+
+# Encrypted secrets
+doppler.*
