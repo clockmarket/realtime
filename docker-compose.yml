@@ -11,6 +11,8 @@ services:
       - redis-server
     environment:
       - DOPPLER_TOKEN=${DOPPLER_TOKEN}
+      - PORT=3002
+      - REDIS_URL=redis://:password@redis-server:6379
     env_file:
       - .env
     expose:

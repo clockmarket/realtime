@@ -23,4 +23,4 @@ jobs:
           docker tag clockmarket/realtime:latest registry.heroku.com/clockmarket-realtime/web
           docker push registry.heroku.com/clockmarket-realtime/web
       - name: Release Docker Image to run on Heroku
-        run: heroku container:release web
+        run: heroku container:release web --app=clockmarket-realtime

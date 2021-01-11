@@ -15,9 +15,11 @@ RUN yarn
 
 # Environment
 ARG DOPPLER_TOKEN
-
-ENV PORT=${PORT}
 ENV DOPPLER_TOKEN=${DOPPLER_TOKEN}
+
+ENV PORT=$PORT
+
+ENV REDIS_URL=$REDIS_URL
 
 # Grabs secrets from Doppler, and embeds encrypted version in build
 RUN doppler secrets download doppler.encrypted.json
@@ -26,4 +28,4 @@ RUN doppler secrets download doppler.encrypted.json
 COPY . .
 
 ENTRYPOINT ["doppler", "run", "--fallback=doppler.encrypted.json", "--"]
-CMD ["yarn", "start:dev"]
+CMD ["yarn", "start"]
