@@ -9,11 +9,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build Docker Image
         run: |
-          docker build --build-arg DOPPLER_TOKEN=${{ secrets.DOPPLER_TOKEN }} .
-  test:
-    runs-on: ubuntu-latest
-    steps:
+          docker build --build-arg DOPPLER_TOKEN=${{ secrets.DOPPLER_TOKEN }} -t clockmarket/realtime:latest .
       - name: Run Unit Tests
-        run: npm test
+        run: docker run clockmarket/realtime:latest yarn test
         env:
           CI: true
