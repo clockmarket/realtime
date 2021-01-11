@@ -6,20 +6,21 @@ RUN (curl -Ls https://cli.doppler.com/install.sh || wget -qO- https://cli.dopple
 
 WORKDIR /app
 
-# Environment
-ARG DOPPLER_TOKEN
-ENV DOPPLER_TOKEN=${DOPPLER_TOKEN}
-EXPOSE 3002
-
-# Grabs secrets from Doppler, and embeds encrypted version in build
-RUN doppler secrets download doppler.encrypted.json
-
-# Copy necessary source
+# Handles deps
 COPY package.json package.json
 COPY yarn.lock yarn.lock
 
 # Install deps
 RUN yarn
+
+# Environment
+ARG DOPPLER_TOKEN
+
+ENV PORT=${PORT}
+ENV DOPPLER_TOKEN=${DOPPLER_TOKEN}
+
+# Grabs secrets from Doppler, and embeds encrypted version in build
+RUN doppler secrets download doppler.encrypted.json
 
 # Copy more files
 COPY . .

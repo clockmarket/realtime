@@ -68,3 +68,5 @@ redis-volume
 
 # Encrypted secrets
 doppler.*
+
+.DS_*
