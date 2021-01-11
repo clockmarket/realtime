@@ -3,7 +3,7 @@ name: test
 on: [pull_request, push]
 
 jobs:
-  build-and-test:
+  build-and-test-and-deploy-to-heroku:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,7 +20,7 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       - name: Push Docker Image to Heroku Registry
         run: |
-          docker tag clockmarket/realtime:latest registry.heroku.com/clockmarket-realtime/web .
+          docker tag clockmarket/realtime:latest registry.heroku.com/clockmarket-realtime/web
           docker push registry.heroku.com/clockmarket-realtime/web
       - name: Release Docker Image to run on Heroku
         run: heroku container:release web
